@@ -151,7 +151,6 @@
     </view>
 </template>
 <script lang="ts" setup>
-  // #ifndef MP-TOUTIAO
    import diyZzhcStoreStaff from '@/addon/zzhc/components/diy/zzhc-store-staff/index.vue';
    import diyZzhcSwiper from '@/addon/zzhc/components/diy/zzhc-swiper/index.vue';
    import diyO2oGoodsList from '@/addon/o2o/components/diy/o2o-goods-list/index.vue';
@@ -159,7 +158,6 @@
    import diyO2oOrderInfo from '@/addon/o2o/components/diy/o2o-order-info/index.vue';
    import diyO2oSearch from '@/addon/o2o/components/diy/o2o-search/index.vue';
    import diyO2oTechnician from '@/addon/o2o/components/diy/o2o-technician/index.vue';
-        // #endif
    import topTabbar from '@/components/top-tabbar/top-tabbar.vue'
    import useDiyStore from '@/app/stores/diy';
    import { useDiyGroup } from './useDiyGroup';

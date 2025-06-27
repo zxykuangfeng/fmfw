@@ -532,12 +532,7 @@
 				}
 			]
 		},
-        // ZZHC_PAGE_END
-// {{ PAGE_END }}
-        {
-            "root": "app/components",
-            "pages": []
-        },
+
         {
             "root": "app/pages/member",
             "pages": [
