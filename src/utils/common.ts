@@ -327,7 +327,7 @@ export function getAppChannel(): string {
     // #ifdef APP-PLUS
     return 'app'
     // #endif
-    // #ifdef MP-WEIXIN
+    // #ifdef MP-WEIXIN || MP-TOUTIAO
     return 'weapp'
     // #endif
     // #ifdef H5
