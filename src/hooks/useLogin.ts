@@ -2,6 +2,8 @@ import { redirect, isWeixinBrowser, urlDeconstruction, currRoute } from '@/utils
 import {
     weappLogin,
     updateWeappOpenid,
+    toutiaoLogin,
+    updateToutiaoOpenid,
     updateWechatOpenid,
     wechatUser,
     wechatUserLogin
@@ -150,6 +152,52 @@ export function useLogin() {
         })
         // #endif
 
+           // #ifdef MP-TOUTIAO
+           uni.getStorageSync('pid') && (Object.assign(obj, { pid: uni.getStorageSync('pid') }))
+           toutiaoLogin(obj).then((res: any) => {
+               if (res.data.token) {
+                   useMemberStore().setToken(res.data.token, () => {
+                       const config = useConfigStore()
+                       const memberInfo: any = useMemberStore().info
+   
+                       // 老用户不控制强制绑定手机号
+                       if (uni.getStorageSync('wap_member_not_control_mobile')) {
+                           uni.removeStorageSync('wap_member_not_control_mobile')
+                       }
+   
+                       if (memberInfo) {
+                           memberInfo.weapp_openid && uni.setStorageSync('openid', memberInfo.weapp_openid)
+                           if (memberInfo.mobile) {
+                               uni.setStorageSync('wap_member_mobile', memberInfo.mobile) // 存储会员手机号，防止重复请求微信获取手机号接口
+                           } else {
+                               uni.setStorageSync('wap_member_not_control_mobile', true) // 老用户不控制强制绑定手机号
+                           }
+                       }
+   
+                       // todo 已注册的会员不受影响
+                       // 开启绑定手机号标识
+                       if (uni.getStorageSync('isBindMobile')) {
+                           uni.removeStorageSync('isBindMobile')
+                       }
+                       //
+                       // if (config.login.is_bind_mobile && memberInfo && !memberInfo.mobile) {
+                       //     uni.setStorageSync('isBindMobile', true)
+                       // }
+   
+                       if (params.successCallback) params.successCallback(res.data)
+   
+                       if (params.backFlag) handleLoginBack() // 一键登录返回
+                   })
+               } else {
+                   // 强制获取昵称和头像，先存储起来
+                   uni.setStorageSync('openid', res.data.openid)
+                   uni.setStorageSync('unionid', res.data.unionid)
+               }
+           }).catch((err) => {
+               uni.showToast({ title: err.msg, icon: 'none' })
+               if (params.successCallback) params.successCallback()
+           })
+           // #endif
         // #ifdef H5
         uni.getStorageSync('pid') && (Object.assign(obj, { pid: uni.getStorageSync('pid') }))
         wechatUser(obj).then((user_res: any) => {
@@ -236,6 +284,17 @@ export function useLogin() {
         })
         // #endif
 
+        
+        // #ifdef MP-TOUTIAO
+        updateToutiaoOpenid(obj).then((res) => {
+            useMemberStore().getMemberInfo(() => {
+                const memberInfo = useMemberStore().info
+                memberInfo && memberInfo.weapp_openid && uni.setStorageSync('openid', memberInfo.weapp_openid)
+            })
+        })
+        // #endif
+
+
         // #ifdef H5
         updateWechatOpenid(obj).then((res) => {
             useMemberStore().getMemberInfo(() => {
@@ -283,39 +342,39 @@ export function useLogin() {
         })
         // #endif
 
-                // #ifdef MP-TOUTIAO
-                     tt.login({
-            success(res: any) {
-                if (res.code) {
-                    const loginFn = (nick: string, avatar: string) => {
-                        params.updateFlag ? updateOpenid(res.code) : authLogin({
-                            code: res.code,
-                            nickname: nick || params.nickname,
-                            headimg: avatar || params.headimg,
-                            mobile: params.mobile,
-                            mobile_code: params.mobile_code,
-                            backFlag: params.backFlag,
-                            successCallback: params.successCallback
-                        })
-                    }
-                    if (params.getUserInfo) {
-                        tt.getUserInfo({
-                            success(info: any) {
-                                loginFn(info.userInfo.nickName, info.userInfo.avatarUrl)
-                            },
-                            fail() {
-                                loginFn('', '')
-                            }
-                        })
+            // #ifdef MP-TOUTIAO
+            tt.login({
+                success(res: any) {
+                    if (res.code) {
+                        const loginFn = (nick: string, avatar: string) => {
+                            params.updateFlag ? updateOpenid(res.code) : authLogin({
+                                code: res.code,
+                                nickname: nick || params.nickname,
+                                headimg: avatar || params.headimg,
+                                mobile: params.mobile,
+                                mobile_code: params.mobile_code,
+                                backFlag: params.backFlag,
+                                successCallback: params.successCallback
+                            })
+                        }
+                        if (params.getUserInfo) {
+                            tt.getUserInfo({
+                                success(info: any) {
+                                    loginFn(info.userInfo.nickName, info.userInfo.avatarUrl)
+                                },
+                                fail() {
+                                    loginFn('', '')
+                                }
+                            })
+                        } else {
+                            loginFn('', '')
+                        }
                     } else {
-                        loginFn('', '')
+                        console.log('登录失败！' + res.errMsg)
                     }
-                } else {
-                    console.log('登录失败！' + res.errMsg)
                 }
-            }
-        })
-                // #endif
+            })
+            // #endif
 
         // #ifdef H5
 

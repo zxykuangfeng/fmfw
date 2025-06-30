@@ -25,7 +25,7 @@
                         <button class="w-[630rpx] h-[88rpx] !mx-[0] !bg-[var(--primary-color)] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" @click="oneClickLogin()">{{ t('quickLoginOrLogout') }}</button>
                     </view>
                     <!-- #endif -->
-                                        <!-- #ifdef MP-TOUTIAO -->
+                              <!-- #ifdef MP-TOUTIAO -->
                     <!-- 抖音小程序快捷登录 -->
 
                     <!-- 优先显示第三方登录/注册 -->

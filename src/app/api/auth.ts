@@ -101,12 +101,28 @@ export function weappLogin(data: AnyObject) {
 }
 
 /**
+ * 抖音小程序授权登录
+ */
+export function toutiaoLogin(data: AnyObject) {
+    if (uni.getStorageSync('pid')) {
+        data.pid = uni.getStorageSync('pid');
+    }
+    return request.post('toutiao/login', data, { showErrorMessage: false })
+}
+
+/**
  * 微信小程序修改openid
  */
 export function updateWeappOpenid(data: AnyObject) {
     return request.put('weapp/update_openid', data, { showErrorMessage: false })
 }
 
+/**
+ * 抖音小程序修改openid
+ */
+export function updateToutiaoOpenid(data: AnyObject) {
+    return request.put('toutiao/update_openid', data, { showErrorMessage: false })
+}
 /**
  * 绑定手机号
  */
