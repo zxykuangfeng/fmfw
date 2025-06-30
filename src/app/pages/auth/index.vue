@@ -25,6 +25,22 @@
                         <button class="w-[630rpx] h-[88rpx] !mx-[0] !bg-[var(--primary-color)] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" @click="oneClickLogin()">{{ t('quickLoginOrLogout') }}</button>
                     </view>
                     <!-- #endif -->
+                                        <!-- #ifdef MP-TOUTIAO -->
+                    <!-- 抖音小程序快捷登录 -->
+
+                    <!-- 优先显示第三方登录/注册 -->
+                    <view class="w-full flex items-center justify-center mb-[40rpx]" v-if="loginConfig.is_auth_register">
+                        <button v-if="!wapMemberMobile && loginConfig.is_bind_mobile" class="w-[630rpx] h-[88rpx] !bg-[var(--primary-color)] !mx-[0] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" open-type="getPhoneNumber" @getphonenumber="mobileAuth">{{ t('quickLoginOrLogout') }}</button>
+                        <button v-else class="w-[630rpx] h-[88rpx] !mx-[0] !bg-[var(--primary-color)] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" open-type="getUserInfo" @getuserinfo="toutiaoAuth">{{ t('quickLoginOrLogout') }}</button>
+                    </view>
+
+                    <!-- 未开启第三方登录/注册，但是开启了手机号登录 -->
+                    <view class="w-full flex items-center justify-center mb-[40rpx]" v-else-if="!loginConfig.is_auth_register && loginConfig.is_mobile">
+                        <button v-if="!wapMemberMobile" class="w-[630rpx] h-[88rpx] !bg-[var(--primary-color)] !mx-[0] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" open-type="getPhoneNumber" @getphonenumber="mobileAuth">{{ t('quickLoginOrLogout') }}</button>
+                        <button v-else class="w-[630rpx] h-[88rpx] !bg-[var(--primary-color)] !mx-[0] text-[26rpx] rounded-[44rpx] leading-[88rpx] font-500 !text-[#fff]" open-type="getUserInfo" @getuserinfo="toutiaoAuth">{{ t('quickLoginOrLogout') }}</button>
+                    </view>
+
+                    <!-- #endif -->
 
                     <!-- #ifdef MP-WEIXIN -->
                     <!-- 微信小程序快捷登录 -->
@@ -355,6 +371,13 @@ const weappLogin = (successCallback: any, data: any) => {
 
 const agreeChange = () => {
     isAgree.value = !isAgree.value
+}
+
+const toutiaoAuth = (e: any) => {
+    if (e.detail.errMsg === 'getUserInfo:ok') {
+        const info = e.detail.userInfo || {}
+        oneClickLogin(() => { loginLoading.value = false }, { nickname: info.nickName, headimg: info.avatarUrl, getUserInfo: true })
+    }
 }
 
 const mobileAuth = (e: any) => {

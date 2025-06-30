@@ -261,6 +261,7 @@ export function useLogin() {
         params.headimg = params.headimg || '';
         params.mobile = params.mobile || '';
         params.mobile_code = params.mobile_code || '';
+        params.getUserInfo = params.getUserInfo || false;
 
         // #ifdef MP-WEIXIN
         wx.login({
@@ -283,23 +284,37 @@ export function useLogin() {
         // #endif
 
                 // #ifdef MP-TOUTIAO
-                tt.login({
-                    success(res: any) {
-                        if (res.code) {
-                            params.updateFlag ? updateOpenid(res.code) : authLogin({
-                                code: res.code,
-                                nickname: params.nickname,
-                                headimg: params.headimg,
-                                mobile: params.mobile,
-                                mobile_code: params.mobile_code,
-                                backFlag: params.backFlag,
-                                successCallback: params.successCallback
-                            })
-                        } else {
-                            console.log('登录失败！' + res.errMsg)
-                        }
+                     tt.login({
+            success(res: any) {
+                if (res.code) {
+                    const loginFn = (nick: string, avatar: string) => {
+                        params.updateFlag ? updateOpenid(res.code) : authLogin({
+                            code: res.code,
+                            nickname: nick || params.nickname,
+                            headimg: avatar || params.headimg,
+                            mobile: params.mobile,
+                            mobile_code: params.mobile_code,
+                            backFlag: params.backFlag,
+                            successCallback: params.successCallback
+                        })
                     }
-                })
+                    if (params.getUserInfo) {
+                        tt.getUserInfo({
+                            success(info: any) {
+                                loginFn(info.userInfo.nickName, info.userInfo.avatarUrl)
+                            },
+                            fail() {
+                                loginFn('', '')
+                            }
+                        })
+                    } else {
+                        loginFn('', '')
+                    }
+                } else {
+                    console.log('登录失败！' + res.errMsg)
+                }
+            }
+        })
                 // #endif
 
         // #ifdef H5
