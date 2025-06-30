@@ -306,7 +306,9 @@ const oneClickLogin = (callback: any = null, data: any = null) => {
 
     // 第三方平台自动登录
     // #ifdef MP
-    weappLogin(callback, data)
+    // weappLogin(callback, data)
+    login.getAuthCode({ backFlag: true, successCallback: callback, ...data })
+
     // #endif
 }
 
@@ -357,17 +359,17 @@ const wechatLogin = () => {
 }
 
 // 微信小程序登录
-const weappLogin = (successCallback: any, data: any) => {
-    let loginConfig = uni.getStorageSync('login_config')
-    let member_exist = uni.getStorageSync('member_exist')
-    if (loginConfig.is_auth_register && loginConfig.is_force_access_user_info && !member_exist) {
-        infoFill.value.show = true
-        loginLoading.value = false
-    } else {
-        data = data || {};
-        login.getAuthCode({ backFlag: true, successCallback, ...data })
-    }
-}
+// const weappLogin = (successCallback: any, data: any) => {
+//     let loginConfig = uni.getStorageSync('login_config')
+//     let member_exist = uni.getStorageSync('member_exist')
+//     if (loginConfig.is_auth_register && loginConfig.is_force_access_user_info && !member_exist) {
+//         infoFill.value.show = true
+//         loginLoading.value = false
+//     } else {
+//         data = data || {};
+//         login.getAuthCode({ backFlag: true, successCallback, ...data })
+//     }
+// }
 
 const agreeChange = () => {
     isAgree.value = !isAgree.value
