@@ -532,7 +532,6 @@
 				}
 			]
 		},
-
         {
             "root": "app/pages/member",
             "pages": [
