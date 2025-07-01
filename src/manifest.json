@@ -72,8 +72,12 @@
     "mp-baidu" : {
         "usingComponents" : true
     },
-    "mp-toutiao" : {
-        "usingComponents" : true
+    "mp-toutiao": {
+        "appid": "tt554123fcca4821c001",
+        "usingComponents": true,
+        "setting": {
+            "urlCheck": false
+        }
     },
     "uniStatistics" : {
         "enable" : false

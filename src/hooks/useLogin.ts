@@ -345,6 +345,8 @@ export function useLogin() {
             // #ifdef MP-TOUTIAO
             tt.login({
                 success(res: any) {
+
+                    console.log('tt.login success:', res); 
                     if (res.code) {
                         const loginFn = (nick: string, avatar: string) => {
                             params.updateFlag ? updateOpenid(res.code) : authLogin({

@@ -289,6 +289,7 @@ const checkWxPrivacy = (status: any = '') => {
 
 // 一键登录
 const oneClickLogin = (callback: any = null, data: any = null) => {
+    console.log('oneClickLogin start', { data });
     if (checkWxPrivacy()) return;
 
     if (loginLoading.value) return
