@@ -206,8 +206,3 @@ onHide(() => {
 })
 </script>
 
-<style>
-uni-page-head {
-    display: none !important;
-}
-</style>
