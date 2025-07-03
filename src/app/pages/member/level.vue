@@ -2,7 +2,7 @@
     <view :style="themeColor()" class="bg-[var(--page-bg-color)] min-h-[100vh] overflow-hidden">
         <loading-page :loading="loading && memberInfo"></loading-page>
         <view v-if="!loading && memberInfo && list && list.length" class="min-h-[100vh] overflow-hidden flex flex-col" :style="{backgroundColor: currLevelInfo.level_style.bg_color }">
-            <!-- #ifdef MP -->
+              <!-- #ifndef MP-TOUTIAO -->
             <top-tabbar :data="topTabbarData" :scrollBool="topTabarObj.getScrollBool()" />
             <!-- #endif -->
             <view>

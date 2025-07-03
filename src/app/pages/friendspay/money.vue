@@ -2,7 +2,7 @@
     <view :style="themeColor()">
         <view class="bg-[var(--page-bg-color)] min-h-screen overflow-hidden" v-if="Object.keys(friendsInfo).length && !loading">
             <view :style="{background: 'url(' + img('static/resource/images/app/friendpay_money.png') + ') left bottom / cover no-repeat'}" class="pb-[194rpx] overflow-hidden">
-                <!-- #ifdef MP-WEIXIN -->
+                <!-- #ifndef MP-TOUTIAO -->
                 <view class="sticky top-0 left-0 right-0 z-100">
                     <top-tabbar :data="topTabbarData" :scrollBool="topTabarObj.getScrollBool()" />
                 </view>

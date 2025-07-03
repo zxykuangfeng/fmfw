@@ -1,7 +1,9 @@
 <template>
     <view :style="themeColor()">
         <view class="w-screen h-screen flex flex-col items-center" v-if="payInfo">
+              <!-- #ifndef MP-TOUTIAO -->
             <top-tabbar ref="topTabbarRef" :data="topTabbarParam" />
+             <!-- #endif -->
             <view class="flex-1 flex flex-col items-center w-full pt-[180rpx]">
                 <view class="flex items-baseline" :class="{'text-[#06c05d]': payInfo.status==2, 'text-red': payInfo.status!=2}">
                     <text class="nc-iconfont -mb-[4rpx] !text-[32rpx]" :class="{'nc-icon-duihaoV6mm': payInfo.status==2, 'nc-icon-tanhaoV6mm': payInfo.status!=2}"></text>

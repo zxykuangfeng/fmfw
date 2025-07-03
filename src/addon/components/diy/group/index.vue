@@ -1,6 +1,8 @@
 <template>
     <view class="diy-group" id="componentList">
+        <!-- #ifndef MP-TOUTIAO -->
         <top-tabbar :scrollBool="diyGroup.componentsScrollBool.TopTabbar" v-if="data.global && Object.keys(data.global).length && data.global.topStatusBar && data.global.topStatusBar.isShow" ref="topTabbarRef" :data="data.global" />
+         <!-- #endif -->
         <view v-for="(component, index) in data.value" :key="component.id"
         @click="diyStore.changeCurrentIndex(index, component)"
         :class="diyGroup.getComponentClass(index,component)" :style="component.pageStyle">
@@ -121,12 +123,6 @@
             <template v-if="component.componentName == 'Text'">
                 <diy-text ref="diyTextRef" :component="component" :global="data.global" :index="index" :scrollBool="diyGroup.componentsScrollBool.Text" />
             </template>
-            <template v-if="component.componentName == 'ZzhcStoreStaff'">
-                <diy-zzhc-store-staff ref="diyZzhcStoreStaffRef" :component="component" :global="data.global" :index="index" :scrollBool="diyGroup.componentsScrollBool.ZzhcStoreStaff" />
-            </template>
-            <template v-if="component.componentName == 'ZzhcSwiper'">
-                <diy-zzhc-swiper ref="diyZzhcSwiperRef" :component="component" :global="data.global" :index="index" :scrollBool="diyGroup.componentsScrollBool.ZzhcSwiper" />
-            </template>
             <template v-if="component.componentName == 'O2oGoodsList'">
                 <diy-o2o-goods-list ref="diyO2oGoodsListRef" :component="component" :global="data.global" :index="index" :scrollBool="diyGroup.componentsScrollBool.O2oGoodsList" />
             </template>
@@ -151,8 +147,6 @@
     </view>
 </template>
 <script lang="ts" setup>
-    import diyZzhcStoreStaff from '../zzhc-store-staff/index.vue';
-    import diyZzhcSwiper from '../zzhc-swiper/index.vue';
     import diyO2oGoodsList from '../o2o-goods-list/index.vue';
     import diyO2oMemberInfo from '../o2o-member-info/index.vue';
     import diyO2oOrderInfo from '../o2o-order-info/index.vue';

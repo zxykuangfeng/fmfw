@@ -1,6 +1,7 @@
 <template>
     <view class="w-screen h-screen flex flex-col" :style="themeColor()">
-        <!-- #ifdef MP-WEIXIN -->
+        <!-- #ifdef MP-WEIXIN  && MP-TOUTIAO --> 
+        
         <view :style="{'height':headerHeight}">
             <top-tabbar :data="param" :scrollBool="topTabarObj.getScrollBool()" class="top-header" />
         </view>

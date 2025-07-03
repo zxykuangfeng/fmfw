@@ -2,7 +2,7 @@
     <view class="min-h-[100vh] !bg-[var(--page-bg-color)]" :style="themeColor()" v-if="memberStore.info">
         <view class="fixed w-full z-2  !bg-[var(--page-bg-color)]">
             <view class="pb-[190rpx] text-[#fff] w-full" :style="headerStyle">
-                <!-- #ifdef MP-WEIXIN -->
+                  <!-- #ifndef MP-TOUTIAO -->
                 <top-tabbar :data="param" class="top-header" />
                 <!-- #endif -->
                 <view class="leading-[38rpx] text-[28rpx] pl-[60rpx] pt-[100rpx]">{{ t('accountBalance') }}</view>

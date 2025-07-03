@@ -3,7 +3,7 @@
         <template v-if="!loading">
             <view class="w-full bg-[var(--page-bg-color)]">
                 <view class="pb-[210rpx] relative" :style="headerStyle">
-                    <!-- #ifdef MP-WEIXIN -->
+                   <!-- #ifndef MP-TOUTIAO -->
                     <top-tabbar :data="param" :scrollBool="topTabarObj.getScrollBool()" class="top-header" />
                     <!-- #endif -->
                     <view class="text-[70rpx] leading-[90rpx] text-[#fff] pl-[60rpx] font-500 pt-[77rpx] price-font">{{ pointInfo.point || 0 }}</view>

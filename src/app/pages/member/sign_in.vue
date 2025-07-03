@@ -3,7 +3,7 @@
         <view class="min-h-screen overflow-hidden" v-if="Object.values(info).length" :class="{ 'bg-[#F6F6F6]' : info && info.is_use }">
             <view v-if="info.is_use">
                 <view class="sigin-header">
-                    <!-- #ifdef MP-WEIXIN -->
+                    <!-- #ifndef MP-TOUTIAO -->
                     <view v-if="info.rule_explain" class="side-tab" :style="{top: topStyle}" @click="signPopup = true">
                         <text class="nc-iconfont nc-icon-a-meiriqiandaoV6xx-36  icon"></text>
                         <text class="desc">签到规则</text>
@@ -154,7 +154,7 @@
                 </view>
             </view>
             <view class="h-[100vh] w-[100vw] flex justify-center items-center" v-else>
-                <!-- #ifdef MP-WEIXIN -->
+                <!-- #ifndef MP-TOUTIAO -->
                 <top-tabbar :data="topTabbarData" :scrollBool="topTabarObj.getScrollBool()" class="top-header" />
                 <!-- #endif -->
                 <u-empty text="签到未开启" width="347rpx" height="265rpx" :icon="img('static/resource/images/system/empty.png')" />

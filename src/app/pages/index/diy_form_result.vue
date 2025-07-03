@@ -1,7 +1,9 @@
 <template>
     <view :style="themeColor()">
         <view class="w-screen h-screen flex flex-col items-center" v-if="recordInfo">
+             <!-- #ifndef MP-TOUTIAO -->
             <top-tabbar ref="topTabbarRef" :data="topTabbarParam" />
+             <!-- #endif -->
             <view class="flex-1 flex flex-col items-center w-full pt-[180rpx]">
                 <text class="nc-iconfont nc-icon-duihaoV6mm text-[#06ae56] mb-[30rpx] !text-[65rpx]"></text>
                 <view class="px-[30rpx] text-center leading-[1.3] text-[42rpx] font-bold mb-[30rpx]">{{ recordInfo.submitConfig.tips_type == 'default' ? '填写成功' : recordInfo.submitConfig.tips_text }}</view>

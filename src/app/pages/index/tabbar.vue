@@ -1,7 +1,8 @@
 <template>
     <view class="w-screen h-screen flex flex-col">
+          <!-- #ifndef MP-TOUTIAO -->
         <top-tabbar v-if="navbar" :data="navbar.data" :is-back="false"/>
-
+          <!-- #endif -->
         <view class="hidden">{{ tag }}</view>
 
         <template v-if="tabbar && Object.keys(tabbar).length">

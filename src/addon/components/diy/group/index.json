@@ -1,8 +1,6 @@
 {
     "component": true,
     "usingComponents": {
-      "diy-zzhc-store-staff": "../zzhc-store-staff/index",
-      "diy-zzhc-swiper": "../zzhc-swiper/index",
       "diy-o2o-goods-list": "../o2o-goods-list/index",
       "diy-o2o-member-info": "../o2o-member-info/index",
       "diy-o2o-order-info": "../o2o-order-info/index",
@@ -10,8 +8,6 @@
       "diy-o2o-technician": "../o2o-technician/index"
     },
     "componentPlaceholder": {
-      "diy-zzhc-store-staff": "view",
-      "diy-zzhc-swiper": "view",
       "diy-o2o-goods-list": "view",
       "diy-o2o-member-info": "view",
       "diy-o2o-order-info": "view",
