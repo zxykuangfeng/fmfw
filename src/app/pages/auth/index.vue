@@ -377,9 +377,15 @@ const agreeChange = () => {
 }
 
 const toutiaoAuth = (e: any) => {
+    if (!isAgree.value && loginConfig.agreement_show) {
+        popupRef.value.open()
+        return
+    }
     if (e.detail.errMsg === 'getUserInfo:ok') {
         const info = e.detail.userInfo || {}
         oneClickLogin(() => { loginLoading.value = false }, { nickname: info.nickName, headimg: info.avatarUrl, getUserInfo: true })
+    } else {
+        uni.showToast({ title: '用户未授权', icon: 'none' })
     }
 }
 

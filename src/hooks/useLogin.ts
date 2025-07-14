@@ -373,7 +373,12 @@ export function useLogin() {
                         }
                     } else {
                         console.log('登录失败！' + res.errMsg)
+                        uni.showToast({ title: '登录失败', icon: 'none' })
                     }
+                },
+                fail() {
+                    uni.showToast({ title: '登录失败', icon: 'none' })
+                    if (params.successCallback) params.successCallback()
                 }
             })
             // #endif
