@@ -384,6 +384,8 @@ const toutiaoAuth = () => {
         return
     }
     tt.getUserProfile({
+        desc: '用于完善会员资料',
+        lang: 'zh_CN',
         success(res: any) {
             const info = res.userInfo || {}
             oneClickLogin(() => { loginLoading.value = false }, { nickname: info.nickName, headimg: info.avatarUrl})
