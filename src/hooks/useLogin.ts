@@ -343,44 +343,51 @@ export function useLogin() {
         // #endif
 
             // #ifdef MP-TOUTIAO
-            tt.login({
-                success(res: any) {
+           tt.login({
+    success(res: any) {
+        console.log('tt.login success:', res);
+        if (res.code) {
+            const loginFn = (nick: string, avatar: string) => {
+                params.updateFlag ? updateOpenid(res.code) : authLogin({
+                    code: res.code,
+                    nickname: nick || params.nickname,
+                    headimg: avatar || params.headimg,
+                    mobile: params.mobile,
+                    mobile_code: params.mobile_code,
+                    backFlag: params.backFlag,
+                    successCallback: params.successCallback
+                });
+            };
 
-                    console.log('tt.login success:', res); 
-                    if (res.code) {
-                        const loginFn = (nick: string, avatar: string) => {
-                            params.updateFlag ? updateOpenid(res.code) : authLogin({
-                                code: res.code,
-                                nickname: nick || params.nickname,
-                                headimg: avatar || params.headimg,
-                                mobile: params.mobile,
-                                mobile_code: params.mobile_code,
-                                backFlag: params.backFlag,
-                                successCallback: params.successCallback
-                            })
-                        }
-                        if (params.getUserInfo) {
-                            tt.getUserInfo({
-                                success(info: any) {
-                                    loginFn(info.userInfo.nickName, info.userInfo.avatarUrl)
-                                },
-                                fail() {
-                                    loginFn('', '')
-                                }
-                            })
-                        } else {
-                            loginFn('', '')
-                        }
-                    } else {
-                        console.log('登录失败！' + res.errMsg)
-                        uni.showToast({ title: '登录失败', icon: 'none' })
+            if (params.getUserInfo) {
+                tt.getUserProfile({
+                    success(info: any) {
+                        console.log('tt.getUserInfo success:', info);
+                        loginFn(info.userInfo.nickName, info.userInfo.avatarUrl);
+                    },
+                    fail(err: any) {
+                        console.log('tt.getUserProfile failed:', err)
+                        uni.showToast({
+                            title: '获取用户信息失败',
+                            icon: 'none'
+                        });
+                        loginFn('', '');
                     }
-                },
-                fail() {
-                    uni.showToast({ title: '登录失败', icon: 'none' })
-                    if (params.successCallback) params.successCallback()
-                }
-            })
+                });
+            } else {
+                loginFn('', '');
+            }
+        } else {
+            console.log('登录失败！' + res.errMsg);
+            uni.showToast({ title: '登录失败', icon: 'none' });
+        }
+    },
+    fail(err: any) {
+        console.error('tt.login fail:', err); // 也加上失败打印
+        uni.showToast({ title: '登录失败', icon: 'none' });
+        if (params.successCallback) params.successCallback();
+    }
+});
             // #endif
 
         // #ifdef H5
