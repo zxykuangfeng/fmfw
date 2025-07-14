@@ -124,9 +124,11 @@
     import { ref,computed, watch, onMounted, nextTick,getCurrentInstance } from 'vue';
     import {redirect,img, getToken } from '@/utils/common';
     import useDiyStore from '@/app/stores/diy';
-    import {getGoodsComponents} from '@/addon/o2o/api/goods';
+	import request from '@/utils/request';
     import skeleton from '@/addon/o2o/components/skeleton/index'
-
+	const getGoodsComponents = (params: Record<string, any>) => {
+    return request.get('o2o/goods/components', params);
+};
     const props = defineProps(['component', 'index']);
     const diyStore = useDiyStore();
 

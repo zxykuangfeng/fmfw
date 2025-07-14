@@ -16,7 +16,10 @@
     // 技师中心
   import { ref,computed, watch, onMounted, nextTick,getCurrentInstance } from 'vue';
 	import { img,redirect } from '@/utils/common';
-	import {checkTechnician} from '@/addon/o2o/api/technician'
+    import request from '@/utils/request';
+	const checkTechnician = (params: Record<string, any>) => {
+    return request.get('o2o/checktechnician', params);
+};
 	import useDiyStore from '@/app/stores/diy';
 
 	const props = defineProps(['component', 'index']);

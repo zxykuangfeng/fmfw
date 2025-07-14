@@ -94,8 +94,10 @@
 	import { ref, computed, watch,onMounted } from 'vue';
 	import useDiyStore from '@/app/stores/diy';
 	import { img,redirect } from '@/utils/common';
-	import { getOrderNum } from '@/addon/o2o/api/order';
-
+	import request from '@/utils/request';
+	const getOrderNum = (params: Record<string, any>) => {
+    return request.get('o2o/order/num', params);
+};
 	const props = defineProps(['component', 'index']);
 	const diyStore = useDiyStore();
 	const diyComponent = computed(() => {
