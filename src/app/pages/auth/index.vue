@@ -2,12 +2,11 @@
     <view class="login-page">
       <!-- 抖音小程序登录按钮（必须同步触发） -->
       <!-- #ifdef MP-TOUTIAO -->
-      <view class="login-page">
-  <button class="btn" open-type="getUserInfo" @tap="handleToutiaoLogin">抖音授权登录</button>
-</view>      <!-- #endif -->
+      <button class="btn" @tap="handleToutiaoLogin">抖音授权登录</button>
+   <!-- #endif -->
   
       <!-- 普通账号密码登录 -->
-      <view class="btn" @tap="goAccountLogin">账号密码登录</view>
+      <view class="btn" @tap="goAccountLogin">账号密码登录1</view>
     </view>
   </template>
   
