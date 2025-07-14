@@ -386,7 +386,7 @@ const toutiaoAuth = () => {
     tt.getUserProfile({
         success(res: any) {
             const info = res.userInfo || {}
-            oneClickLogin(() => { loginLoading.value = false }, { nickname: info.nickName, headimg: info.avatarUrl, getUserInfo: true })
+            oneClickLogin(() => { loginLoading.value = false }, { nickname: info.nickName, headimg: info.avatarUrl})
         },
         fail(err: any) {
             console.log('tt.getUserProfile failed:', err)

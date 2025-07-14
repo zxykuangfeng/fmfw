@@ -320,7 +320,7 @@ export function useLogin() {
         params.headimg = params.headimg || '';
         params.mobile = params.mobile || '';
         params.mobile_code = params.mobile_code || '';
-        params.getUserInfo = params.getUserInfo || false;
+        // params.getUserInfo = params.getUserInfo || false;
 
         // #ifdef MP-WEIXIN
         wx.login({
@@ -359,24 +359,25 @@ export function useLogin() {
                 });
             };
 
-            if (params.getUserInfo) {
-                tt.getUserProfile({
-                    success(info: any) {
-                        console.log('tt.getUserInfo success:', info);
-                        loginFn(info.userInfo.nickName, info.userInfo.avatarUrl);
-                    },
-                    fail(err: any) {
-                        console.log('tt.getUserProfile failed:', err)
-                        uni.showToast({
-                            title: '获取用户信息失败',
-                            icon: 'none'
-                        });
-                        loginFn('', '');
-                    }
-                });
-            } else {
-                loginFn('', '');
-            }
+            // if (params.getUserInfo) {
+            //     tt.getUserProfile({
+            //         success(info: any) {
+            //             console.log('tt.getUserInfo success:', info);
+            //             loginFn(info.userInfo.nickName, info.userInfo.avatarUrl);
+            //         },
+            //         fail(err: any) {
+            //             console.log('tt.getUserProfile failed:', err)
+            //             uni.showToast({
+            //                 title: '获取用户信息失败',
+            //                 icon: 'none'
+            //             });
+            //             loginFn('', '');
+            //         }
+            //     });
+            // } else {
+            //     loginFn('', '');
+            // }
+            loginFn('', '')
         } else {
             console.log('登录失败！' + res.errMsg);
             uni.showToast({ title: '登录失败', icon: 'none' });
