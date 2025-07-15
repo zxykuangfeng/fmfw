@@ -109,6 +109,15 @@ export function toutiaoLogin(data: AnyObject) {
     }
     return request.post('toutiao/login', data, { showErrorMessage: false })
 }
+/**
+ * 抖音小程序登录（tt.login 获取 code）
+ */
+export function toutiaoLoginByCode(data: AnyObject) {
+    if (uni.getStorageSync('pid')) {
+        data.pid = uni.getStorageSync('pid');
+    }
+    return request.post('toutiao/login', data, { showErrorMessage: true })
+}
 
 /**
  * 微信小程序修改openid

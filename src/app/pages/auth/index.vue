@@ -13,30 +13,45 @@
   <script setup lang="ts">
   import { ref } from 'vue'
   import { redirect } from '@/utils/common'
-  
+  import useMemberStore from '@/stores/member'
+  import { useLogin } from '@/hooks/useLogin'
+  import { toutiaoLoginByCode } from '@/app/api/auth'
+
+
+  const memberStore = useMemberStore()
+  const login = useLogin()
   // 抖音登录
   const handleToutiaoLogin = () => {
-  if (typeof tt !== 'undefined') {
-    console.log('点击事件触发');
-    console.log(tt)
-    // 保证是在点击事件函数体中同步调用
-    tt.getUserProfile({
-      desc: '用于完善用户资料',
-      lang: 'zh_CN',
-      success(res: any) {
-        console.log('授权成功：', res.userInfo);
-        // 可加入后续登录逻辑
+    if (typeof tt === 'undefined') {
+      uni.showToast({ title: '非抖音小程序环境', icon: 'none' })
+      return
+    }
+    tt.login({
+        success(res: any) {
+        if (res.code) {
+          uni.showLoading({ title: '' })
+          toutiaoLoginByCode({ code: res.code }).then((ret: any) => {
+            uni.hideLoading()
+            if (ret.data && ret.data.token) {
+              memberStore.setToken(ret.data.token)
+              login.handleLoginBack()
+            } else {
+              uni.showToast({ title: ret.msg || '登录失败', icon: 'none' })
+            }
+          }).catch((err) => {
+            uni.hideLoading()
+            uni.showToast({ title: err.msg || '登录失败', icon: 'none' })
+          })
+        } else {
+          uni.showToast({ title: res.errMsg || '登录失败', icon: 'none' })
+        }
       },
       fail(err: any) {
-        console.error('getUserProfile 授权失败：', err);
-        uni.showToast({ title: '用户未授权', icon: 'none' });
+        uni.showToast({ title: '登录失败', icon: 'none' })
       }
-    });
-  } else {
-    uni.showToast({ title: '非抖音小程序环境', icon: 'none' });
-  }
-};
 
+    })
+}
   
   // 普通账号密码登录跳转
   const goAccountLogin = () => {
