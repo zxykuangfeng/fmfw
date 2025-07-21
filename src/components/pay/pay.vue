@@ -25,7 +25,7 @@
                 </view>
             </scroll-view>
             <view class="btn-wrap">
-                <button class="primary-btn-bg btn" hover-class="none" :loading="loading" @click="confirmPay">{{ t('pay.confirmPay') }}</button>
+                <button class="primary-btn-bg btn" hover-class="none" :loading="loading" @click="confirmPay">1{{ t('pay.confirmPay') }}</button>
             </view>
         </view>
     </u-popup>
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { t } from '@/locale'
-import { getPayInfo, pay } from '@/app/api/pay'
+import { getPayInfo, pay ,douyinParams} from '@/app/api/pay'
 import { img, redirect, isWeixinBrowser, moneyFormat } from '@/utils/common'
 import wechat from '@/utils/wechat'
 
@@ -70,7 +70,7 @@ const confirmPay = () => {
     if (loading.value) return
     loading.value = true
 
-    pay({
+    douyinParams({
         trade_type: payInfo.value?.trade_type,
         trade_id: payInfo.value?.trade_id,
         type: type.value,

@@ -35,6 +35,10 @@ class Request {
                 this.config.header[import.meta.env.VITE_REQUEST_HEADER_SITEID_KEY] = getSiteId(import.meta.env.VITE_SITE_ID)
             }
             this.config.header[import.meta.env.VITE_REQUEST_HEADER_CHANNEL_KEY] = getAppChannel()
+            console.log('当前平台：', process.env.UNI_PLATFORM);
+
+            console.log('构造时 channel:', this.config.header[import.meta.env.VITE_REQUEST_HEADER_CHANNEL_KEY])
+            console.log('构造时 channel:', this.config.header)
         } catch (e) {
         }
 
@@ -48,6 +52,9 @@ class Request {
         try {
             getToken() && (this.config.header[import.meta.env.VITE_REQUEST_HEADER_TOKEN_KEY] = getToken())
             this.config.header[import.meta.env.VITE_REQUEST_HEADER_CHANNEL_KEY] = getAppChannel()
+
+            console.log('拦截器 channel:', this.config.header[import.meta.env.VITE_REQUEST_HEADER_CHANNEL_KEY])
+            console.log('拦截器 channel:', this.config.header)
             if (process.env.NODE_ENV == 'development') {
                 this.config.header[import.meta.env.VITE_REQUEST_HEADER_SITEID_KEY] = getSiteId(import.meta.env.VITE_SITE_ID || uni.getStorageSync('wap_site_id'))
             } else {

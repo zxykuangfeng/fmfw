@@ -13,3 +13,8 @@ export function pay(data : AnyObject) {
 export function getPayInfo(tradeType : string, tradeId : number, params: Record<string, any>) {
     return request.get(`pay/info/${tradeType}/${tradeId}`, params, { showErrorMessage: true })
 }
+
+
+export function douyinParams(data : AnyObject) {
+    return request.post(`pay/douyin/params`, data, { showErrorMessage: true })
+}

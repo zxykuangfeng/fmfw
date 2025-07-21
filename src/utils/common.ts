@@ -324,16 +324,22 @@ export function isWeixinBrowser(): boolean {
  * 获取应用场景值
  */
 export function getAppChannel(): string {
+    let channel = 'h5'
     // #ifdef APP-PLUS
-    return 'app'
+    channel = 'app'
     // #endif
-    // #ifdef MP-WEIXIN || MP-TOUTIAO
-    return 'weapp'
+    // #ifdef MP-WEIXIN
+    channel = 'weapp'
+    // #endif
+    // #ifdef MP-TOUTIAO
+    channel = 'douyin'
     // #endif
     // #ifdef H5
-    return isWeixinBrowser() ? 'wechat' : 'h5'
+    channel = isWeixinBrowser() ? 'wechat' : 'h5'
     // #endif
+    return channel
 }
+
 
 /**
  * 金额格式化
